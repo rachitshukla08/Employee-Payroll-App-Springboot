@@ -2,9 +2,7 @@ package com.bridgelabz.employeepayrollapp.controller;
 
 import javax.validation.Valid;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -50,9 +48,10 @@ public class EmployeePayrollController {
 		return new ResponseEntity<String>("Updated Employee Payroll Data For: "+empPayrollDTO,HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/delete/{empId}")
-	public ResponseEntity<String> deleteEmployeePayrollData(@PathVariable("empId")int empId){
-		return new ResponseEntity<String>("Delete Call Success For ID: "+empId,HttpStatus.OK);
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<Response> deleteEmployeePayrollData(@PathVariable("id")long id){
+		Response response = empService.deleteEmployee(id);
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 
 }

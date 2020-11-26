@@ -2,7 +2,7 @@ package com.bridgelabz.employeepayrollapp.exception;
 
 public class EmployeePayrollException extends RuntimeException {
 	
-	int errorCode;
+	public int errorCode;
 	String message;
 	
 	public EmployeePayrollException(String message) {

@@ -48,8 +48,11 @@ public class EmployeeImpl implements IEmployee{
 	}
 
 	@Override
-	public void deleteEmployee(Long id) {
+	public Response deleteEmployee(Long id) {
+		Employee employee =  employeeRepository.findById(id).
+												orElseThrow(()->new EmployeePayrollException(404, "Employee for id: "+id+" not found"));
 		employeeRepository.deleteById(id);
+		return new Response(200,"Employee Deleted For ID: "+id);
 	}
 
 	@Override
