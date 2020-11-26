@@ -1,5 +1,10 @@
 package com.bridgelabz.employeepayrollapp.controller;
 
+import javax.validation.Valid;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,10 +17,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabz.employeepayrollapp.dto.EmployeePayrollDTO;
+import com.bridgelabz.employeepayrollapp.service.IEmployee;
+import com.bridgelabz.employeepayrollapp.utility.Response;
 
 @RestController
 @RequestMapping("/employeepayrollservice")
 public class EmployeePayrollController {
+	
+	@Autowired
+	private IEmployee empService;
 	
 	@RequestMapping(value = {"","/","/get"})
 	public ResponseEntity<String> getEmployeePayrollData(){
@@ -28,8 +38,9 @@ public class EmployeePayrollController {
 	}
 	
 	@PostMapping("/create")
-	public ResponseEntity<String> addEmployeePayrollData(@RequestBody EmployeePayrollDTO empPayrollDTO){
-		return new ResponseEntity<String>("Created Employee Payroll Data For: "+empPayrollDTO,HttpStatus.OK);
+	public ResponseEntity<Response> addEmployeePayrollData(@Valid @RequestBody EmployeePayrollDTO employeeDto){
+		Response response = empService.addEmployee(employeeDto);
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	
 	@PutMapping("/update")
