@@ -34,13 +34,19 @@ public class EmployeeImpl implements IEmployee{
 	}
 
 	@Override
-	public List<Employee> getEmployee() {
-		return employeeRepository.findAll();
+	public Response getEmployees() {
+		List<Employee> employeeList = employeeRepository.findAll();
+		return new Response(200,"Employees in repository: "+employeeList);
 	}
 
 	@Override
-	public Employee getEmployeeByID(Long id) {
-		return employeeRepository.findById(id).get();
+	public Response getEmployeeByID(Long id) {
+		Employee employee =  employeeRepository.findById(id).get();
+		if(employee!=null) {
+			return new Response(200,"Employee found: "+employee);
+		}
+		else 
+			return null;
 	}
 
 	@Override

@@ -28,13 +28,15 @@ public class EmployeePayrollController {
 	private IEmployee empService;
 	
 	@RequestMapping(value = {"","/","/get"})
-	public ResponseEntity<String> getEmployeePayrollData(){
-		return new ResponseEntity<String>("Get Call Success", HttpStatus.OK);
+	public ResponseEntity<Response> getEmployeePayrollData(){
+		Response response = empService.getEmployees();
+		return new ResponseEntity<Response>(response, HttpStatus.OK);
 	}
 	
-	@GetMapping("/get/{empId}")
-	public ResponseEntity<String> getEmployeePayrollData(@PathVariable("empId") int empId){
-		return new ResponseEntity<String>("Get Call Success For ID: "+empId,HttpStatus.OK);
+	@GetMapping("/get/{id}")
+	public ResponseEntity<Response> getEmployeePayrollData(@PathVariable("id") long id){
+		Response response = empService.getEmployeeByID(id);
+		return new ResponseEntity<Response>(response,HttpStatus.OK);
 	}
 	
 	@PostMapping("/create")
