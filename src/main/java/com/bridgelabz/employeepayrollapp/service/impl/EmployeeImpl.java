@@ -41,12 +41,10 @@ public class EmployeeImpl implements IEmployee{
 
 	@Override
 	public Response getEmployeeByID(Long id) {
-		Employee employee =  employeeRepository.findById(id).get();
-		if(employee!=null) {
-			return new Response(200,"Employee found: "+employee);
-		}
-		else 
-			return null;
+		Employee employee =  employeeRepository.findById(id).
+												orElseThrow(()->new EmployeePayrollException(404, "Employee for id: "+id+" not found"));
+		return new Response(200,"Employee found: "+employee);
+	 
 	}
 
 	@Override

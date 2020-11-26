@@ -9,6 +9,9 @@ public class Response {
 		this.statusCode = statusCode;
 		this.statusMessage = statusMessage;
 	}
+	public Response(String statusMessage) {
+		this.statusMessage= statusMessage;
+	}
 	public int getStatusCode() {
 		return statusCode;
 	}

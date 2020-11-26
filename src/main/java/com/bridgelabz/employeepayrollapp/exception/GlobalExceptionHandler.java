@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(EmployeePayrollException.class)
 	public final ResponseEntity<Response> employeePayrollException(EmployeePayrollException e) {
-        Response status=new Response(400,e.getMessage());
+        Response status=new Response(e.errorCode,e.getMessage());
         return new ResponseEntity<Response>(status,HttpStatus.OK);
     }
 	
